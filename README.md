@@ -242,3 +242,57 @@ const CartItem = ({ id, img, title, price, amount }) => {
 
 export default CartItem;
 ```
+
+#### First Reducer
+
+- cartSlice.js
+- Immer library
+
+```js
+const cartSlice = createSlice({
+  name: "cart",
+  initialState,
+  reducers: {
+    clearCart: (state) => {
+      state.cartItems = [];
+    },
+  },
+});
+
+export const { clearCart } = cartSlice.actions;
+```
+
+- create action
+
+```js
+const ACTION_TYPE = "ACTION_TYPE";
+
+const actionCreator = (payload) => {
+  return { type: ACTION_TYPE, payload: payload };
+};
+```
+
+- CartContainer.js
+
+```js
+import React from "react";
+import CartItem from "./CartItem";
+import { useDispatch, useSelector } from "react-redux";
+
+const CartContainer = () => {
+  const dispatch = useDispatch();
+
+  return (
+    <button
+      className="btn clear-btn"
+      onClick={() => {
+        dispatch(clearCart());
+      }}
+    >
+      clear cart
+    </button>
+  );
+};
+
+export default CartContainer;
+```
